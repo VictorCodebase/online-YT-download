@@ -1,6 +1,8 @@
 # online-YT-download
 Search for your favorite hits and Spotify playlists
 
+Now renamed to PSYD - panda saves you data🐼🐼
+
 # Home page
 ![Screenshot 2023-07-30 234549](https://github.com/VictorCodebase/online-YT-download/assets/135356007/a85040d6-039a-4900-9f30-d98b20ea12c2)
 
