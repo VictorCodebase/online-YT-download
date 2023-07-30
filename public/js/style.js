@@ -12,6 +12,7 @@ const spotifySubText = document.getElementById('spotify-sub-text')
 let isHovering = false;
 let isCircleVisible = true;
 
+
 function updateBackgroundColor(color) {
     anime({
         targets: overlay,
@@ -19,6 +20,7 @@ function updateBackgroundColor(color) {
         duration: 300,
         easing: 'linear'
     })
+
 
 
     setTimeout(() => {
@@ -80,6 +82,8 @@ window.addEventListener('mouseenter', function () {
     isCircleVisible = true;
     circle.style.display = 'block';
 });
+
+
 
 
 

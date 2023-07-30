@@ -1,4 +1,4 @@
-body {
+/* body {
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -8,7 +8,7 @@ body {
   }
 
   /* scrollbar */
-  * {
+  /* * {
     scrollbar-width: thin;
     scrollbar-color: #000000 #fff;
   }
@@ -31,7 +31,7 @@ body {
 
 
 
-  #spotify-sub-text{display: none;}
+  /* #spotify-sub-text{display: none;}
   .success{color: #009400; font-weight: bolder;}
   .fail{color:#ff0000 ; font-weight: bolder;}
   
@@ -157,7 +157,7 @@ body {
 
 
   /* ! MENU */
-  .menu{
+  /* .menu{
     background-color: #00070070;
     backdrop-filter: blur(10px);
     min-height: fit-content;
@@ -197,12 +197,18 @@ body {
       height: 60%;
       background-color: #000000;
   }
+
   .illustration >img{
     object-fit: cover;
     width: 100%;
     height: 100%;
+  }  */
+  .loadBlinking{
+    animation: loadBlinking 1s infinite ease-in-out;
   }
-  .follow-along-data{
+  @keyframes loadBlinking { 0% { background-color: #000000; } 50% { background-color: rgb(34, 34, 34); } 100% { background-color: black; } }
+  
+  /* .follow-along-data{
     width: 100%;
     height: 30%;
   }
@@ -210,12 +216,15 @@ body {
     position: relative;
     display: flex;
     justify-content: space-around;
+    top: 20px;
     height: 40px;
-    width: 95%;
+    width: 100%;
   }
   .fa-container > .fa-content{
     height: 100%;
-    width: 30%;
+    background-color: #000000;
+    width: 25%;
+    height: 40px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -223,4 +232,291 @@ body {
   .title-name{
     margin-left: 15px;
     margin-right: 9px;
+  } */
+
+
+
+  /* ! NEW */
+  body {
+    margin: 0;
+    padding: 0;
+    background: #F8F6F6;
   }
+  
+  header {
+    padding: 10px;
+  }
+  
+  a{
+    text-decoration: none;
+    color: #000;
+  }
+  
+  .amin::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(225, 247, 181, 0.5); /* Set the same background color */
+    backdrop-filter: blur(10px); /* Adjust the blur value to control the intensity */
+    z-index: -1; /* Place the pseudo-element behind the content */
+  }
+  
+  .git-container {
+    position: absolute;
+    right: 25px;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    height: 53px;
+  }
+  
+  .logo-title {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 97px;
+    height: 24px;
+    text-align: left;
+    text-decoration: underline;
+    font: normal normal bold 18px/24px Segoe UI;
+    letter-spacing: 0px;
+    color: #464242;
+  }
+
+  .notifications{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    z-index: 2;
+    left: 5rem;
+    padding: 1rem;
+    min-height: fit-content;
+    max-height: 80px;
+    overflow: hidden;
+    background-color: #fff;
+    border-radius: 5px;
+    display: none;
+  }
+
+  .circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+    pointer-events: none;
+    z-index: -1;
+    background-image: radial-gradient(circle closest-side at center, #ebd9d5, transparent 100%);
+  }
+  /* !CHNAGES START WHEN THIS APPEARS */
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .buttons-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .bigger-slider {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5rem;
+    width: 100%;
+    height: 62px;
+    background: #C0C0C0;
+    border: 1px solid #707070;
+    border-radius: 50px;
+    opacity: 1;
+    display: flex;
+    justify-content: center;
+    font-size: 24px;
+    color: #000;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .smaller-secondary{
+    position: relative;
+    width: 50%;
+    height: 62px; 
+    border: none;
+    border-radius: 50px;
+    background-color: #C0C0C0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    font-weight: bolder;
+    color: #464242;
+  }
+  .smaller-secondary2
+  {
+    position: absolute;
+    width: 50%;
+    left: 0;
+    height: 62px; 
+    border: none;
+    border-radius: 50px;
+    background-color: #C0C0C0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    font-weight: bolder;
+    color: #464242;
+  }
+  .smaller-button {
+    position: relative;
+    margin-right: 10px;
+    width: 50%;
+    height: 62px; 
+    background: #000000;
+    box-shadow: 5px 0px 6px #0000009a;
+    border: solid white 0.5px;
+    border-radius: 50px;
+    opacity: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    font-weight: bolder;
+    color: #ffffff;
+  }
+  
+  .searchbar {
+    position: relative;
+    top: 2rem;
+    width: 100%; /* Use 100% width to make it responsive */
+    max-width: 65%; /* Limit the max width to 65% for larger screens */
+    height: 50px;
+    background: #FFFFFF;
+    border: 1px solid #707070;
+    opacity: 1;
+    display: flex;
+    align-items: center;
+  }
+  
+  .searchbar input[type="text"] {
+    padding: 10px;
+    flex: 1;
+    font-size: 20px;
+    border: none;
+    outline: none;
+  }
+  .search-button {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    right: 0;
+    width: 281px;
+    height: 100%;
+    background: #C0C0C0;
+    border: 1px solid #707070;
+    opacity: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color: #000;
+  }
+  
+  .steps-container {
+    position: absolute;
+    display: flex;
+    top: 50%;
+    left: 5rem;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-between;
+    width: 50%;
+  }
+  
+  .step {
+    text-align: center;
+  }
+  
+  .step-image {
+    width: 90%;
+    min-height: 300px;
+    max-height: 343px; /* Add a max-height to maintain aspect ratio */
+    background-size: cover;
+    background-position: center;
+    box-shadow: 9px 5px 3px #0000006B;
+    border: 1px solid #707070;
+    opacity: 1;
+  }
+  
+  
+  .step-text {
+    height: 108px;
+    text-align: left;
+    font: normal normal 600 15px/27px Segoe UI;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+  }
+  
+
+  
+  
+  /* Desktop styles */
+@media (min-width: 768px) {
+  .buttons-container {
+    width: 40%;
+  }
+
+  .steps-container {
+    left: 5rem;
+    width: 50%;
+  }
+
+  .step-image {
+    width: 90%;
+  }
+
+  .step-text {
+    width: 28rem;
+  }
+}
+
+/* Tablet styles */
+@media (max-width: 767px) {
+  .buttons-container {
+    width: 80%;
+  }
+
+  .steps-container {
+    left: 1rem;
+    width: 90%;
+    flex-wrap: wrap;
+  }
+
+  .step {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .step-image {
+    width: 100%;
+  }
+
+  .step-text {
+    width: 100%;
+  }
+}
+
+.spotify{
+  display: none;
+}
