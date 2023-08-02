@@ -115,7 +115,7 @@ app.post('/api/getVideos', (req, res) => {
 function getSongByName(name, quality) {
     // create a new promise
     return new Promise((resolve, reject) => {
-        const pythonProcess = spawn("python", ["pythonFile.py", name, quality, 'single']);
+        const pythonProcess = spawn("python", ["pythonFile.py", name, 'single']);
 
         let data = "";
         pythonProcess.stdout.pipe(process.stdout);

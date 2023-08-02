@@ -5,6 +5,7 @@ var largerSampleInput = 'https://www.youtube.com/watch?v=p4rRCjrAyCs&list=RDp4rR
 
 const dataSearchErr = "Could not search for the information you provided"
 const dataSearchEarlyScc = "Video processing just began"
+const playlistOption = "The video is part of a playlist. Download full playlist?"
 const processing = "Video processing complete."
 
 window.addEventListener('keydown', (e) => {
@@ -16,15 +17,24 @@ window.addEventListener('keydown', (e) => {
 function sendURL(data) {
     if (data) {
         if (data.includes("https://") || data.includes("http://")) {
-            broadcastNotification(dataSearchEarlyScc, ": Searching for youtube link online", "ok");
-            if (data.includes('://youtu.be/')) {
-                id = data.split("/")[3];
-                id = id.split('?')[0]
-            } else {
-                id = data.split("=")[1];
-                if (id.includes('&')) id = id.split('&')[0]
-                console.log(id);
 
+            if (data.includes("list=")) {
+                broadcastNotification('playlist', "The video is part of a playlist, get full playlist instead?", 'ok')
+                setTimeout(()=> {
+                    sendURL(data.split("list=")[0])
+                }, 3000)
+
+            } else {
+                broadcastNotification(dataSearchEarlyScc, ": Searching for youtube link online", "ok");
+                if (data.includes('://youtu.be/')) {
+                    id = data.split("/")[3];
+                    id = id.split('?')[0]
+                } else {
+                    id = data.split("=")[1];
+                    if (id.includes('&')) id = id.split('&')[0]
+                    console.log(id);
+
+                }
             }
             getData(id);
 
@@ -104,29 +114,85 @@ function verifyData(data, extent) {
 
 }
 
+//!Mode Switch
+modeSwitch = document.getElementById("visualSlider")
+spotifyExclusives = document.querySelectorAll('.spotify')
+youtubeExclusives = document.querySelectorAll('.youtube')
+var isSpotify = false
 
-//Notifier
-let banner = document.getElementById("banner")
+modeSwitch.addEventListener('mousedown', () => {
+    console.log('Clicked')
+    if (!isSpotify) {
+        isSpotify = true;
+        console.log('false');
+    }
+    else { isSpotify = false }
+
+    console.log(isSpotify)
+
+    if (isSpotify) {
+        anime({
+            targets: modeSwitch,
+            left: '50%',
+            duration: 200,
+            easing: 'easeInOutQuad'
+        })
+        visualSlider.innerText = 'SPOTIFY'
+        spotifyExclusives.forEach(exclusive => {
+            exclusive.style.display = 'block'
+        });
+        youtubeExclusives.forEach(exclusive => {
+            exclusive.style.display = 'none'
+        });
+    } else {
+        anime({
+            targets: modeSwitch,
+            left: 0,
+            duration: 200,
+            easing: 'easeInOutQuad'
+        })
+        visualSlider.innerText = 'YOUTUBE'
+        spotifyExclusives.forEach(exclusive => {
+            exclusive.style.display = 'none'
+        });
+        youtubeExclusives.forEach(exclusive => {
+            exclusive.style.display = 'block'
+        });
+    }
+})
+
+
+
+
+//!Notifier
+var banner = document.getElementById("banner")
+var opt1 = document.getElementById('notificationPrimaryOpt1')
+var opt2 = document.getElementById('notificationPrimaryOpt2')
 let bannerContent = document.getElementById("scroll-contentID")
 let isLive = false
 let BroadcastTime = 6000
 function broadcastNotification(message, technicalMessage, type) {
 
     tone = (type == 'ok') ? 'success' : 'fail'
+    opt1.style.display = 'none'
     anime({
         targets: banner,
         opacity: [0, 1],
-        top: [-100, -90],
+        left: [100, 90],
         duration: 400,
         easing: 'linear',
         begin: function () {
             banner.style.display = 'flex'
         }
     })
+    if (message == 'playlist') {
+        opt1.style.display = 'block'
+        opt1.innerText = 'Get playlist'
+    }
     if (!isLive) {
-        bannerContent.innerHTML = `<p class='${tone}'>${tone}:</p><p>${message}: ${technicalMessage}</p>`
+        bannerContent.innerHTML = `<p class='${tone}'>${tone}:</p><p>${technicalMessage}</p>`
     } else {
-        bannerContent.innerHTML += `<p class='${tone}'>${tone}:</p><p>${message}: ${technicalMessage}</p>`
+        bannerContent.innerHTML += `<p class='${tone}'>${tone}:</p><p>${technicalMessage}</p>`
         BroadcastTime += 3000;
     }
     isLive = true
@@ -135,25 +201,39 @@ function broadcastNotification(message, technicalMessage, type) {
         anime({
             targets: banner,
             opacity: [1, 0],
-            top: [-90, -100],
+            left: [90, 100],
             duration: 400,
             easing: 'linear',
         })
         isLive = false
+        return('closed')
     }, BroadcastTime)
+
+}
+function ignoreNotification(input) {
+    if(input.includes('list=')){
+        sendURL(input.split('list=')[0])
+    }
+    anime({
+        targets: banner,
+        opacity: [1, 0],
+        duration: 400,
+        easing: 'linear',
+    })
 }
 
 
-class MainMenu{
 
-    constructor(type, rawData){
+class MainMenu {
+
+    constructor(type, rawData) {
         this.type = type;
         this.rawData = rawData;
     }
 
     operation = new Secondary(this.rawData)
 
-    searchResults(){
+    searchResults() {
         console.log("search results page running")
         console.log(this.type)
         console.log(this.rawData)
@@ -161,13 +241,12 @@ class MainMenu{
         this.menuBody(reversed)
 
     }
-    skeletonSearchResults()
-    {
+    skeletonSearchResults() {
         this.menuBody(null)
         console.log("skeleton load page loading")
     }
 
-    menuBody(reversedArr){
+    menuBody(reversedArr) {
         console.log("Menu body running", reversedArr)
         console.log(this.rawData)
         var menuID = document.getElementById('menuID')
@@ -178,19 +257,19 @@ class MainMenu{
         menuTitle.innerHTML += `SEARCH RESULTS FOR ${this.type.toUpperCase()}`
         menuSTitle.innerHTML += `${"subTitle"}`
 
-        if(reversedArr != null){
+        if (reversedArr != null) {
             console.log(reversedArr)
-            for (var i = 0; i < reversedArr.length; i++){
+            for (var i = 0; i < reversedArr.length; i++) {
                 this.resultCard("live", reversedArr)
             }
-        }else{
-            for(var i = 0; i < 5; i++){
+        } else {
+            for (var i = 0; i < 5; i++) {
                 this.resultCard("skeleton", null)
             }
         }
 
     }
-    resultCard(type, data){
+    resultCard(type, data) {
         var illustrations = document.getElementById('illustrationsID')
         var illustrationHolder = document.createElement('div')
         var illustration = document.createElement('div')
@@ -212,23 +291,23 @@ class MainMenu{
         faContentDownloads.setAttribute('class', 'downloads fa-content')
         faContentTime.setAttribute('class', 'time fa-content')
 
-        if (type == "live"){
-        console.log("Live is running")
-        //adding the elements
-        illustration.setAttribute('class', 'illustration')
-        faContentLikes.setAttribute('class', 'likes fa-content')
-        faContentDownloads.setAttribute('class', 'downloads fa-content')
-        faContentTime.setAttribute('class', 'time fa-content')
+        if (type == "live") {
+            console.log("Live is running")
+            //adding the elements
+            illustration.setAttribute('class', 'illustration')
+            faContentLikes.setAttribute('class', 'likes fa-content')
+            faContentDownloads.setAttribute('class', 'downloads fa-content')
+            faContentTime.setAttribute('class', 'time fa-content')
 
-        illustrations.appendChild(illustrationHolder)
-        illustrationHolder.appendChild(illustration)
-        //illustration.appendChild(illustrationImage)
-        illustrationHolder.appendChild(followAlongData)
-        followAlongData.appendChild(faContainer)
-        faContainer.appendChild(faContentLikes)
-        faContainer.appendChild(faContentDownloads)
-        faContainer.appendChild(faContentTime)
-        } else{
+            illustrations.appendChild(illustrationHolder)
+            illustrationHolder.appendChild(illustration)
+            //illustration.appendChild(illustrationImage)
+            illustrationHolder.appendChild(followAlongData)
+            followAlongData.appendChild(faContainer)
+            faContainer.appendChild(faContentLikes)
+            faContainer.appendChild(faContentDownloads)
+            faContainer.appendChild(faContentTime)
+        } else {
             illustration.setAttribute('class', 'illustration loadBlinking')
             faContentLikes.setAttribute('class', 'likes fa-content loadBlinking')
             faContentDownloads.setAttribute('class', 'downloads fa-content loadBlinking')
@@ -246,24 +325,23 @@ class MainMenu{
     }
 
 }
-//! Blinking effect
 
 
 
-class Secondary{
+class Secondary {
     // Meant to deal with all secondary opperations on data
-    constructor(raw){
+    constructor(raw) {
         this.data = raw;
     }
 
-    reverseArr(){
+    reverseArr() {
 
         //Pointers. Trying to get O(n) time, O(1) space
         let left = 0;
         console.log(this.data)
         let right = this.data.length - 1
 
-        while (left < right){
+        while (left < right) {
             let temp = this.data[left];
             this.data[left] = this.data[right];
             this.data[right] = temp;
@@ -292,7 +370,7 @@ function startMenu(type, subTitle, children, rawData) {
     if (type == 'Search Results') {
         console.log(rawData)
         childrenArr = rawData.split('(__)')
-        if(rawData != null) children = childrenArr.length
+        if (rawData != null) children = childrenArr.length
         console.log(children)
     }
     window.addEventListener('keydown', (e) => {

@@ -97,45 +97,59 @@
     <div class="circle"></div>
     <div class="notifications" id="banner">
         <div class="scroll-content" id="scroll-contentID">
-
+        </div>
+        <div class="notificationOptions">
+            <div class="opt" id="notificationPrimaryOpt1"></div>
+            <div class="opt" id="notificationPrimaryOpt2" onclick="ignoreNotification(document.getElementById('input'))">Ignore</div>
         </div>
     </div>
 
     <main>
         <div class="buttons-container">
-            <btnSlider class="bigger-slider">
-                <button class="smaller-secondary2">YOUTUBE</button>
-                <button class="smaller-button">YOUTUBE</button>
-                <button class="smaller-secondary">SPOTIFY</button>
+            <btnSlider class="bigger-slider modeSwitch">
+                <button class="smaller-button modeSwitch" id="visualSlider">YOUTUBE</button>
+                <button class="smaller-secondary2 modeSwitch">YOUTUBE</button>
+                <button class="smaller-secondary modeSwitch">SPOTIFY</button>
             </btnSlider>
         </div>
 
-        <div class="searchbar" id="box1">
-            <input type="text"  id="input" placeholder="Search..." onfocus="this.select()">
+        <div class="searchbar youtube" id="box1">
+            <input type="text"  id="input" placeholder="Search Youtube..." onfocus="this.select()">
             <button class="search-button inputBox" id="box1" onclick="sendURL(document.getElementById('input').value)">Search</button>
         </div>
         <div class="searchbar spotify" id="box2">
-            <input type="text" id="input2" onfocus="this.select()" placeholder="Search...">
+            <input type="text" id="input2" onfocus="this.select()" placeholder="Search Spotify...">
             <button class="search-button inputBox" id="box2" onclick="sendURL(document.getElementById('input2').value)">Search</button>
         </div>
 
         <div class="steps-container">
+            <div class="h2-steps">STEPS : </div>
             <div class="step">
                 <div class="step-image" style="background-image: url('./localMedia/1b549836-f457-4f24-94eb-8c4bfced2f14.jpeg');"></div>
-                <div class="step-text">Enter video name or URL in the search area and hit search</div>
+                <div class="step-text youtube">Enter video name or URL in the search area and hit search</div>
+                <div class="step-text spotify">Enter Playlist URL in the search area</div>
             </div>
             <div class="step">
                 <div class="step-image" style="background-image: url('./localMedia/10bfc299-35c6-4d3f-9a9c-743c0424f7e5.jpeg');">
                 </div>
-                <div class="step-text">Video URLs will be automatically downloaded once the file is found. Youll be notified In case a file isn't found, don't worry,<br> try downloading a lyric version of the file instead</div>
+                <div class="step-text youtube">Video URLs will be automatically downloaded once the file is found. Youll be notified In case a file isn't found, don't worry,<br> try downloading a lyric version of the file instead</div>
+                <div class="step-text spotify">Panda will immediately begin to fetch your playlist. You'll be informed as Panda searches Songs will be automatically<br>installed afterwards</div>
             </div>
             <div class="step">
                 <div class="step-image" style="background-image: url('./localMedia/c7fc234f-8f18-4835-b600-b9540694b9be.jpeg');">
                 </div>
-                <div class="step-text">All downloaded files will be saved in media folder within this application's folder. Make sure to find your favourite hits there and enjoy all day long</div>
+                <div class="step-text youtube">All downloaded files will be saved in media folder within this application's folder. Make sure to find your favourite hits there and enjoy all day long</div>
+                <div class="step-text spotify">Panda will save all your hits in media/playlist-name folder within this application's folder. Make sure to find your favorite hits there and enjoy all day long</div>
             </div>
         </div>
+
+        <div class="menu">
+            
+        </div>
     </main>
+
+
+
 
     <script src="./js/jsfile.js"></script>
     <script src="./js/style.js"></script>
